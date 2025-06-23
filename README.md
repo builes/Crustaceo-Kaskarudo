@@ -1,7 +1,8 @@
 🚀 Instalación del Proyecto
 
 1. Clonar el repositorio:
-   git clone https://github.com/tu-usuario/crustaceo-cascarudo.git
+   git clone https://github.com/builes/Crustaceo-Kaskarudo
+
    cd crustaceo-cascarudo
 
 2. Instalar dependencias:
