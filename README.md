@@ -57,3 +57,27 @@ La aplicación distingue entre rutas privadas y públicas, controlando el acceso
 - Si un usuario intenta loguearse como **Plankton**, aparecerá un mensaje que indica que no es bienvenido.
 
 ---
+
+## 💾 Uso de Local Storage en el Proyecto
+
+El proyecto utiliza `localStorage` como mecanismo de **persistencia local**, tanto para:
+
+- La sesión del usuario
+- El carrito de compras
+
+Esto simula una experiencia cercana a la de un backend real.
+
+### 🧑‍💻 Persistencia de Usuario
+
+- El estado del usuario autenticado se guarda en `localStorage` con la clave `"user"`.
+- Cuando la app se inicia, verifica si hay un usuario guardado y lo carga automáticamente.
+- Al cerrar sesión, se elimina el usuario del almacenamiento.
+
+> ✅ Esto permite que el usuario permanezca logueado tras recargar la página o cerrar el navegador.
+
+### 🛒 Persistencia del Carrito de Compras
+
+- Cada carrito se guarda con la clave `cart_<username>`.
+- Esto permite que **cada usuario** tenga su propio carrito.
+- Si no hay un usuario logueado, el carrito se vacía automáticamente.
+- Cada vez que se modifica el carrito, se vuelve a guardar en `localStorage`.
