@@ -36,7 +36,9 @@ export const Home = () => {
 
   return (
     <div className="container py-5 text-center text-white position-relative">
-      <h1 className="display-4 text-warning">Bienvenido a la Krusty Krab 🍔</h1>
+      <h1 className="display-4 text-warning">
+        Bienvenido al Crustáceo Cascarudo 🍔
+      </h1>
       <p className="lead mb-4">¡Conoce a nuestro equipo submarino!</p>
 
       {/* Personajes */}

@@ -50,7 +50,7 @@ export const Navbar = () => {
           {user ? (
             <>
               <li className="nav-item d-flex align-items-center text-white me-3">
-                Hello, <strong className="ms-1">{user.username}</strong>
+                Hola <strong className="ms-1">{user.username}</strong>
               </li>
               <li className="nav-item">
                 <LogoutButton />
