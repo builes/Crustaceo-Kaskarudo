@@ -77,6 +77,14 @@ export const Admin = () => {
               </span>
             </div>
             <div className="card-body">
+              <p className="mb-2">
+                <strong>Cliente:</strong> {order.userId?.name} (
+                {order.userId?.email})
+              </p>
+              <p className="mb-2">
+                <strong>Fecha:</strong>{" "}
+                {new Date(order.createdAt).toLocaleString()}
+              </p>
               <ul className="list-group mb-3">
                 {order.items.map((item) => (
                   <li

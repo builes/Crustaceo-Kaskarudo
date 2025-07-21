@@ -31,21 +31,30 @@ export const Navbar = () => {
       <div className="collapse navbar-collapse" id="navbarContent">
         {/* Enlaces principales */}
         <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-          <li className="nav-item">
-            <Link className="nav-link" to="/menu">
-              Menu
-            </Link>
-          </li>
-
-          {user && (
+          {!isAdmin && (
             <>
               <li className="nav-item">
-                <Link className="nav-link d-flex align-items-center" to="/cart">
-                  <ShoppingCartIcon className="me-1" />
-                  Cart
+                <Link className="nav-link" to="/menu">
+                  Menu
                 </Link>
               </li>
 
+              {user && (
+                <li className="nav-item">
+                  <Link
+                    className="nav-link d-flex align-items-center"
+                    to="/cart"
+                  >
+                    <ShoppingCartIcon className="me-1" />
+                    Cart
+                  </Link>
+                </li>
+              )}
+            </>
+          )}
+
+          {user && (
+            <>
               {isAdmin ? (
                 <>
                   <li className="nav-item">

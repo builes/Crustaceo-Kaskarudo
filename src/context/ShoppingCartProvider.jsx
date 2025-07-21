@@ -26,7 +26,7 @@ export const ShoppingCartProvider = ({ children }) => {
           _id: item._id,
           name: item.name,
           price: item.price,
-          image: item.imageUrl,
+          imageUrl: item.imageUrl,
           quantity: item.quantity,
           total: item.total,
         }));
@@ -59,7 +59,7 @@ export const ShoppingCartProvider = ({ children }) => {
         _id: item.productId._id,
         name: item.productId.name,
         price: item.productId.price,
-        image: item.productId.image,
+        imageUrl: item.productId.imageUrl,
         description: item.productId.description,
         quantity: item.quantity,
         total: item.quantity * item.productId.price,
@@ -88,7 +88,7 @@ export const ShoppingCartProvider = ({ children }) => {
         _id: item.productId._id,
         name: item.productId.name,
         price: item.productId.price,
-        image: item.productId.image,
+        imageUrl: item.productId.imageUrl,
         description: item.productId.description,
         quantity: item.quantity,
         total: item.quantity * item.productId.price,
@@ -138,7 +138,6 @@ export const ShoppingCartProvider = ({ children }) => {
   };
 
   const getTotalOrders = async (token) => {
-    console.log("entre");
     try {
       const res = await fetch("http://localhost:3000/api/admin", {
         headers: {
@@ -191,7 +190,6 @@ export const ShoppingCartProvider = ({ children }) => {
         }
       }
 
-      // Continuar con la confirmación si se permite
       const res = await fetch("http://localhost:3000/api/cart/confirm", {
         method: "POST",
         headers: {
@@ -206,7 +204,6 @@ export const ShoppingCartProvider = ({ children }) => {
       }
 
       setCartItems([]);
-      console.log("Orden confirmada:", data);
       return { success: true, data };
     } catch (error) {
       console.error("Error al confirmar orden:", error.message);

@@ -18,10 +18,6 @@ export const MyOrders = () => {
     if (token) loadOrders();
   }, [getOrders, token]);
 
-  useEffect(() => {
-    console.log("Pedidos cargados:", orders);
-  }, [orders]);
-
   return (
     <div className="container my-5">
       <h1 className="mb-4 text-center">Mis Pedidos</h1>
@@ -30,11 +26,20 @@ export const MyOrders = () => {
       ) : (
         orders.map((order) => (
           <div key={order._id} className="card mb-4 shadow">
-            <div className="card-header bg-primary text-white d-flex justify-content-between">
-              <span>Pedido: {counter++}</span>
-              <span>
-                Estado: <strong>{order.status}</strong>
-              </span>
+            <div className="card-header bg-primary text-white d-flex justify-content-between flex-wrap">
+              <div>
+                <span>Pedido: {counter++}</span>
+                <br />
+                <small className="text-light">
+                  <strong>Fecha:</strong>{" "}
+                  {new Date(order.createdAt).toLocaleString()}
+                </small>
+              </div>
+              <div>
+                <span>
+                  Estado: <strong>{order.status}</strong>
+                </span>
+              </div>
             </div>
             <div className="card-body">
               <ul className="list-group mb-3">

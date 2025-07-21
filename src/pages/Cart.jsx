@@ -16,7 +16,6 @@ export const Cart = () => {
 
   const handleOrder = async () => {
     const result = await confirmOrder();
-
     if (result.success) {
       setModalData({
         title: "¡Pedido realizado!",
@@ -40,7 +39,7 @@ export const Cart = () => {
     navigate("/");
   };
 
-  if (cartItems.length === 0) {
+  if (cartItems.length === 0 && !modalData) {
     return (
       <div className="container mt-5 text-center">
         <h2 className="text-danger">No orders yet 🍔</h2>
@@ -75,7 +74,7 @@ export const Cart = () => {
                     <td className="fw-bold text-danger">{item.name}</td>
                     <td>
                       <img
-                        src={item.image}
+                        src={item.imageUrl}
                         alt={item.name}
                         style={{
                           width: "60px",
