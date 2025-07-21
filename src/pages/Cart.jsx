@@ -1,25 +1,43 @@
 import { useContext, useState } from "react";
-import { useNavigate } from "react-router-dom"; // ✅ React Router DOM
+import { useNavigate } from "react-router-dom";
 import { ShoppingCartContext } from "@/context/ShoppingCartContext";
 import { Button, Modal } from "@/components/ui";
 
 export const Cart = () => {
-  const { cartItems, clearCart } = useContext(ShoppingCartContext);
-  const [showModal, setShowModal] = useState(false);
-  const navigate = useNavigate(); // ✅ Hook para redirigir
+  const { cartItems, clearCart, confirmOrder } =
+    useContext(ShoppingCartContext);
+  const [modalData, setModalData] = useState(null); // Maneja título y mensaje
+  const navigate = useNavigate();
 
   const totalPrice = cartItems.reduce(
     (acc, item) => acc + item.price * item.quantity,
     0
   );
 
-  const handleOrder = () => {
-    setShowModal(true);
+  const handleOrder = async () => {
+    const result = await confirmOrder();
+
+    if (result.success) {
+      setModalData({
+        title: "¡Pedido realizado!",
+        message: "Perfecto, Bob Esponja va en camino con tu pedido. 🧽🍔",
+      });
+      setTimeout(() => {
+        navigate("/");
+      }, 2000);
+    } else {
+      setModalData({
+        title: "Pedido no permitido",
+        message: result.status
+          ? `Tienes un pedido en curso (Estado: ${result.status}). Espera a que se complete.`
+          : `No se pudo confirmar el pedido: ${result.error}`,
+      });
+    }
   };
 
   const handleClearCart = () => {
     clearCart();
-    navigate("/"); // ✅ Redirigir a la página principal
+    navigate("/");
   };
 
   if (cartItems.length === 0) {
@@ -53,11 +71,11 @@ export const Cart = () => {
               </thead>
               <tbody>
                 {cartItems.map((item) => (
-                  <tr key={item.id} className="text-center">
+                  <tr key={item._id} className="text-center">
                     <td className="fw-bold text-danger">{item.name}</td>
                     <td>
                       <img
-                        src={`/images/${item.image}`}
+                        src={item.image}
                         alt={item.name}
                         style={{
                           width: "60px",
@@ -101,11 +119,11 @@ export const Cart = () => {
         </div>
       </div>
 
-      {showModal && (
+      {modalData && (
         <Modal
-          title="¡Pedido realizado!"
-          message="Perfecto, Bob Esponja va en camino con tu pedido. 🧽🍔"
-          onClose={() => setShowModal(false)}
+          title={modalData.title}
+          message={modalData.message}
+          onClose={() => setModalData(null)}
         />
       )}
     </div>

@@ -9,6 +9,9 @@ export const Navbar = () => {
   const location = useLocation();
 
   const isLoginPage = location.pathname === "/login";
+  const isSignupPage = location.pathname === "/signup";
+
+  const isAdmin = user?.role === "admin";
 
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-danger px-3">
@@ -26,7 +29,7 @@ export const Navbar = () => {
       </button>
 
       <div className="collapse navbar-collapse" id="navbarContent">
-        {/* Enlaces de navegación */}
+        {/* Enlaces principales */}
         <ul className="navbar-nav me-auto mb-2 mb-lg-0">
           <li className="nav-item">
             <Link className="nav-link" to="/menu">
@@ -34,18 +37,40 @@ export const Navbar = () => {
             </Link>
           </li>
 
-          {/* Mostrar Cart solo si hay usuario logueado */}
           {user && (
-            <li className="nav-item">
-              <Link className="nav-link d-flex align-items-center" to="/cart">
-                <ShoppingCartIcon className="me-1" />
-                Cart
-              </Link>
-            </li>
+            <>
+              <li className="nav-item">
+                <Link className="nav-link d-flex align-items-center" to="/cart">
+                  <ShoppingCartIcon className="me-1" />
+                  Cart
+                </Link>
+              </li>
+
+              {isAdmin ? (
+                <>
+                  <li className="nav-item">
+                    <Link className="nav-link" to="/inventory">
+                      Inventory
+                    </Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link className="nav-link" to="/admin">
+                      Admin
+                    </Link>
+                  </li>
+                </>
+              ) : (
+                <li className="nav-item">
+                  <Link className="nav-link" to="/my-orders">
+                    My Orders
+                  </Link>
+                </li>
+              )}
+            </>
           )}
         </ul>
 
-        {/* Área de usuario a la derecha */}
+        {/* Área de usuario */}
         <ul className="navbar-nav ms-auto">
           {user ? (
             <>
@@ -57,14 +82,22 @@ export const Navbar = () => {
               </li>
             </>
           ) : (
-            // No mostrar botón si ya estás en /login
-            !isLoginPage && (
-              <li className="nav-item">
-                <Link className="btn btn-outline-light" to="/login">
-                  Log In
-                </Link>
-              </li>
-            )
+            <>
+              {!isLoginPage && (
+                <li className="nav-item me-2">
+                  <Link className="btn btn-outline-light" to="/login">
+                    Login
+                  </Link>
+                </li>
+              )}
+              {!isSignupPage && (
+                <li className="nav-item">
+                  <Link className="btn btn-light text-danger" to="/signup">
+                    Sign Up
+                  </Link>
+                </li>
+              )}
+            </>
           )}
         </ul>
       </div>

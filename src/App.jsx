@@ -8,13 +8,6 @@ export const App = () => {
     <UserProvider>
       <AppWrapper>
         <ShoppingCartProvider>
-          {/* Fondo animado: burbujas */}
-          <div className="bubble"></div>
-          <div className="bubble"></div>
-          <div className="bubble"></div>
-          <div className="bubble"></div>
-          <div className="bubble"></div>
-
           <Navbar />
           <AppRouter />
           <Footer />

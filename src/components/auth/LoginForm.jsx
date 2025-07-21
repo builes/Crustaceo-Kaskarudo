@@ -1,30 +1,30 @@
 import { useContext, useState } from "react";
 import { UserContext } from "@/context/UserContext";
 import { useNavigate } from "react-router-dom";
-import { Button } from "@/components/ui/Button"; // Asegúrate que la ruta sea correcta
+import { Button } from "@/components/ui/Button";
 
 export const LoginForm = () => {
   const { login } = useContext(UserContext);
   const navigate = useNavigate();
 
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (username.toLowerCase().includes("plankton")) {
+    if (email.toLowerCase().includes("plankton")) {
       setError("¡Plankton no está autorizado! 🦠");
       return;
     }
 
-    const success = login(username, password);
+    const success = await login(email, password);
 
     if (success) {
       navigate("/");
     } else {
-      setError("Usuario o contraseña incorrectos.");
+      setError("Correo o contraseña incorrectos.");
     }
   };
 
@@ -39,13 +39,13 @@ export const LoginForm = () => {
       <div className="card-body bg-light">
         <form onSubmit={handleSubmit}>
           <div className="mb-3">
-            <label className="form-label">Usuario</label>
+            <label className="form-label">Email</label>
             <input
-              type="text"
+              type="email"
               className="form-control"
-              placeholder="Ingresa tu usuario"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              placeholder="ejemplo@correo.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               required
             />
           </div>

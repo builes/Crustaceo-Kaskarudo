@@ -4,32 +4,41 @@ import { UserContext, ShoppingCartContext } from "@/context";
 import { Modal } from "@/components/ui/Modal";
 
 export const MenuCard = ({ item }) => {
-  const { name, price, description, image, id } = item;
+  const { _id, name, price, description, imageUrl } = item;
   const { user } = useContext(UserContext);
   const { cartItems, addToCart, removeFromCart } =
     useContext(ShoppingCartContext);
 
   const [showModal, setShowModal] = useState(false);
 
-  const quantityInCart = cartItems.find((i) => i.id === id)?.quantity || 0;
+  const quantityInCart = cartItems.find((i) => i._id === _id)?.quantity || 0;
 
-  const handleAdd = () => {
+  const handleAdd = async () => {
     if (!user) {
       setShowModal(true);
       return;
     }
-    addToCart(item);
+
+    try {
+      await addToCart(_id);
+    } catch (error) {
+      console.error("Error al agregar al carrito:", error.message);
+    }
   };
 
-  const handleRemove = () => {
-    removeFromCart(id);
+  const handleRemove = async () => {
+    try {
+      await removeFromCart(_id);
+    } catch (error) {
+      console.error("Error al remover del carrito:", error.message);
+    }
   };
 
   return (
     <>
       <div className="card h-100 border-danger shadow-sm">
         <img
-          src={`/images/${image}`}
+          src={imageUrl}
           alt={name}
           className="card-img-top"
           style={{ objectFit: "cover", height: "200px" }}
